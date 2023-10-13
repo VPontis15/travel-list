@@ -28,7 +28,7 @@ export default function App() {
         onToggleItem={handleToggleItem}
         onRemoveItem={handleRemoveItem}
       />
-      <Stats />
+      <Stats items={items} />
     </div>
   );
 }
@@ -109,10 +109,16 @@ function Item({ item, onRemoveItem, onToggleItem }) {
   );
 }
 
-function Stats() {
+function Stats({ items }) {
+  const itemsLength = items.length;
+  const itemsPacked = items.filter((item) => item.packed).length;
+  const itemsRatio = Math.round((itemsPacked / itemsLength) * 100);
   return (
     <footer className="stats">
-      <em>💼 You have X items on your list, and you already packed X (X%)</em>
+      <em>
+        💼 You have {itemsLength} items on your list, and you already packed{" "}
+        {itemsPacked}({itemsRatio}%)
+      </em>
     </footer>
   );
 }
